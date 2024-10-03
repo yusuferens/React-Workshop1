@@ -3,7 +3,8 @@ import alertify from 'alertifyjs';
 import {Button, ListGroup, ListGroupItem} from 'reactstrap';
 
 const Cart = ({cartItems, onRemoveFromCart,onClearCart}) => {
-  const totalPrice = cartItems.reduce((total, item) => total + item.price,0);
+  // Sepetteki fiyat hesaplamasının güncellennmesi
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.count, 0);
 
   const handleRemoveFromCart = (item) =>{
     onRemoveFromCart(item);
@@ -21,7 +22,7 @@ const Cart = ({cartItems, onRemoveFromCart,onClearCart}) => {
       <ListGroup>
         {cartItems.map((item) =>(
           <ListGroupItem key={item.id}>
-            {item.name} - ${item.price}
+            {item.name} - ${item.price} (x{item.count}) {/* sepette kaç eşya olduğunu da göster*/}
             <Button color='warning'
             onClick={()=> handleRemoveFromCart(item)}
             style={{float: 'right'}}
